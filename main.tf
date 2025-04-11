@@ -8,6 +8,14 @@ resource "github_repository" "mtc_repo" {
 
 }
 
+resource "github_repository_file" "index-html" {
+  repository          = github_repository.mtc_repo.name
+  branch              = "main"
+  file                = "index.html"
+  content             = "Hello terraform!"
+  overwrite_on_create = true
+}
+
 resource "github_repository_file" "readme" {
   repository          = github_repository.mtc_repo.name
   branch              = "main"
