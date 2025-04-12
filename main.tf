@@ -1,10 +1,10 @@
 resource "random_id" "random" {
   byte_length = 2
-  count       = 2
+  count       = var.repo_count
 }
 # Add a user to the organization
 resource "github_repository" "mtc_repo" {
-  count       = 2
+  count       = var.repo_count
   name        = "mtc-repo-${random_id.random[count.index].dec}"
   description = "This is a test repository"
   visibility  = "private"
@@ -12,7 +12,7 @@ resource "github_repository" "mtc_repo" {
 }
 
 resource "github_repository_file" "index-html" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.mtc_repo[count.index].name
   branch              = "main"
   file                = "index.html"
@@ -21,7 +21,7 @@ resource "github_repository_file" "index-html" {
 }
 
 resource "github_repository_file" "readme" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.mtc_repo[count.index].name
   branch              = "main"
   file                = "README.md"
