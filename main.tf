@@ -1,7 +1,9 @@
-
+resource "random_id" "random" {
+  byte_length = 2
+}
 # Add a user to the organization
 resource "github_repository" "mtc_repo" {
-  name        = "mtc-repo"
+  name        = "mtc-repo-${random_id.random.dec}"
   description = "This is a test repository"
   visibility  = "private"
   auto_init   = true
