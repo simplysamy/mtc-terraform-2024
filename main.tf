@@ -9,7 +9,6 @@ resource "github_repository" "mtc_repo" {
   description = "This is a test repository"
   visibility  = "private"
   auto_init   = true
-
 }
 
 resource "github_repository_file" "index-html" {
@@ -28,4 +27,12 @@ resource "github_repository_file" "readme" {
   file                = "README.md"
   content             = "# This repos is for infra developer"
   overwrite_on_create = true
+}
+
+output "clone_urls" {
+  value = {
+    for index in github_repository.mtc_repo[*] : index.name => index.https_clone_url
+  }
+  description = "repository names"
+  sensitive   = false
 }
